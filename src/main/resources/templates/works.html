@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Works Page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <h1>Work</h1>
+    <div th:if="${!works.empty}">
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Year</th>
+                <th>ImgUrl</th>
+            </tr>
+            <tr th:each="work : ${works}">
+                <td th:text="${work.id}">Id</td>
+                <td th:text="${work.title}">Title</td>
+                <td th:text="${work.year}">Year</td>
+                <td th:text="${work.imgUrl}">Image URL</td>
+            </tr>
+        </table>
+        <img th:src="@{work.imgUrl}">
+    </div>
+    <div th:if="${works.empty}">
+        <h3>No works found!</h3>
+    </div>
+</body>
+</html>
