@@ -20,9 +20,9 @@ public class HomeController {
 			return "index";
 		}
 		
-//			//Ctrl-Shift-O to auto import
-//		@PostMapping("/work")
-//		public String workSubmit(@ModelAttribute Work work) {
-//		return "result";
-//		}
+			//Ctrl-Shift-O to auto import
+		@PostMapping("/work")
+		public String workSubmit(@ModelAttribute Work work) {
+		return "result";
+		}
 }

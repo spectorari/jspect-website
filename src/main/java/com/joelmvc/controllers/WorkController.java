@@ -5,10 +5,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
+//import org.springframework.stereotype.Controller; *** DO WE NEED THIS ***
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+//import org.springframework.web.bind.annotation.RequestMapping; *** DO WE NEED THIS ***
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Connection;
@@ -20,16 +25,48 @@ import java.sql.Statement;
 import com.joelmvc.models.Work;
 
 @RestController
-@RequestMapping({"/api/work"})
+//@RequestMapping({"/api/work"}) ** DELETE LATER **
 public class WorkController {
 	
 	@Autowired
 	WorkRepository dao;
 	
-	@GetMapping("/api/work")
+	@GetMapping("/work")
 	public List<Work> getWorks() {
 		List<Work> foundWorks = dao.findAll();
 		return foundWorks;
+	}
+	
+	@GetMapping("/work/{id}")
+	public ResponseEntity<Work> getWork(@PathVariable("id") Integer id) {
+		Work foundWork = dao.findById(id).orElse(null);
+		
+		if(foundWork == null) {
+			return ResponseEntity.notFound().header("Work", "Id not found").build();
+		}
+		return ResponseEntity.ok(foundWork);
+	}
+	
+	@PostMapping("/work")
+	public ResponseEntity<Work> postWork(@RequestBody Work work) {
+		
+		// saving to DB using instance of the repo interface
+		Work createdWork = dao.save(work);
+		
+		// RespEntity crafts response to include correct status codes.
+		return ResponseEntity.ok(createdWork);
+	}
+	
+	@DeleteMapping("/work/{id}")
+	public ResponseEntity<Work> deleteWork(@PathVariable(value="id") Integer id) {
+		Work foundWork = dao.findById(id).orElse(null);
+		
+		if(foundWork == null) {
+			return ResponseEntity.notFound().header("Work", "Id not found").build();
+		}else {
+			dao.delete(foundWork);
+		}
+		return ResponseEntity.ok().build();
 	}
 	@Value("${spring.datasource.url}")
 	private String url;
@@ -55,7 +92,6 @@ public class WorkController {
                 // get the values from each column of the current row and add them to the new Album
                 newWork.setId(rs.getInt("id"));
                 newWork.setTitle(rs.getString("title"));
-                newWork.setYear(rs.getInt("year"));
                 newWork.setImgUrl(rs.getString("img_url"));
 
                 // add the new work to the works list

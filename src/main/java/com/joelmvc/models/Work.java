@@ -14,7 +14,6 @@ public class Work {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String title;
-	private int year;
 	private String img_url;
 	
 
@@ -33,14 +32,6 @@ public class Work {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public int getYear() {
-		return year;
-	}
-
-	public void setYear(int year) {
-		this.year = year;
 	}
 
 	public String getImgUrl() {
