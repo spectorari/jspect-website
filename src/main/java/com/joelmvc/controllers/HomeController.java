@@ -3,8 +3,8 @@ package com.joelmvc.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+//import org.springframework.web.bind.annotation.ModelAttribute;
+//import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.joelmvc.models.Work;
@@ -20,9 +20,9 @@ public class HomeController {
 			return "index";
 		}
 		
-			//Ctrl-Shift-O to auto import
-		@PostMapping("/work")
-		public String workSubmit(@ModelAttribute Work work) {
-		return "result";
-		}
+//			//Ctrl-Shift-O to auto import
+//		@PostMapping("/work")
+//		public String workSubmit(@ModelAttribute Work work) {
+//		return "result";
+//		}
 }
