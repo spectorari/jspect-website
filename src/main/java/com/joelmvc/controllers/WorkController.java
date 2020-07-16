@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 //import org.springframework.stereotype.Controller; *** DO WE NEED THIS ***
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,11 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.joelmvc.models.Work;
 
+@CrossOrigin
 @RestController
 public class WorkController {
 	
 	@Autowired
 	WorkRepository dao;
+	
 	
 	@GetMapping("/api/work")
 	public List<Work> getWorks() {
@@ -39,6 +42,7 @@ public class WorkController {
 		return ResponseEntity.ok(foundWork);
 	}
 	
+	
 	@PostMapping("/api/work")
 	public ResponseEntity<Work> postWork(@RequestBody Work work) {
 		
@@ -48,6 +52,7 @@ public class WorkController {
 		// RespEntity crafts response to include correct status codes.
 		return ResponseEntity.ok(createdWork);
 	}
+	
 	
 	@DeleteMapping("/api/work/{id}")
 	public ResponseEntity<Work> deleteWork(@PathVariable(value="id") Integer id) {
@@ -59,14 +64,5 @@ public class WorkController {
 			dao.delete(foundWork);
 		}
 		return ResponseEntity.ok().build();
-	}
-	@Value("${spring.datasource.url}")
-	private String url;
-
-	@Value("${spring.datasource.username}")
-	private String username;
-
-	@Value("${spring.datasource.password}")
-	private String password;
-	
+	}	
 }
