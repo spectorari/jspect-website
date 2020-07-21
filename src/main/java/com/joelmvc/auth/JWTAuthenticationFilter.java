@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -53,10 +54,13 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
       .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
       .sign(HMAC512(SECRET.getBytes()));
     res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
+    
   }
 
   @Override
   protected void unsuccessfulAuthentication(HttpServletRequest req, HttpServletResponse res, AuthenticationException failed) throws IOException, ServletException {
     super.unsuccessfulAuthentication(req, res, failed);
   }
+  
+  
 }

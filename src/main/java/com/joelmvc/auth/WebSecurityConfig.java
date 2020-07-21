@@ -10,10 +10,11 @@ import org.springframework.security.config.annotation.web.configuration.*;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.cors.*;
 import static com.joelmvc.auth.AuthConstants.*;
 
-
+@CrossOrigin
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Autowired
@@ -34,14 +35,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     http.cors()
       .and()
       .csrf().disable()
-      .authorizeRequests().antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
+      .authorizeRequests()
+      	.antMatchers(HttpMethod.GET, GET_USER).permitAll()
+      	.antMatchers(HttpMethod.GET, WORK_URL).permitAll()
+      	.antMatchers(HttpMethod.GET, WORK_BY_ID_URL).permitAll()
+      	.antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
       .anyRequest().authenticated()
       .and()
       .addFilter(new JWTAuthenticationFilter(authenticationManager()))
       .addFilter(new JWTAuthorizationFilter(authenticationManager()))
       .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
   }
-
   @Bean
   CorsConfigurationSource corsConfigurationSource() {
     final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
