@@ -10,4 +10,5 @@ public class AuthConstants {
 	  public static final String WORK_BY_ID_URL = "/api/work/*";
 	  public static final String GET_USER = "/api/user";
 	  public static final String LOGIN_URL = "/login";
+	  public static final String USER_BY_ID_URL = "/api/user/*";
 }

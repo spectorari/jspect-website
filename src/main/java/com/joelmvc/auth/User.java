@@ -12,6 +12,7 @@ public class User {
 	@Column(nullable = false, unique = true)
 	private String username;
 	private String password;
+	private String authority;
 	
 	public long getId() {
 		return id;
@@ -30,5 +31,11 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getAuthority() {
+		return authority;
+	}
+	public void setAuthority(String authority) {
+		this.authority = authority;
 	}
 }
