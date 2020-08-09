@@ -1,5 +1,5 @@
-import React, { useState, setState } from 'react';
-import { APIURL } from '../../config';
+import React, { useState, useEffect } from 'react';
+// import { APIURL } from '../../config';
 import { Redirect, Link } from 'react-router-dom';
 
 import { MDBBtn, MDBInput } from 'mdbreact';
@@ -14,6 +14,12 @@ const SignIn = (props) => {
 	const [signInError, setSignInError] = useState(false);
 	const [submit, setSubmit] = useState(false);
 
+	useEffect(() => {
+		props.scrollUp();
+		// eslint-disable-next-line
+	}, []);
+
+
 	const handleChange = (e) => {
 		e.persist();
 		setUser({ ...user, [e.target.name]: e.target.value });
@@ -23,7 +29,7 @@ const SignIn = (props) => {
 	const signIn = (e) => {
 		e.preventDefault();
 		setSubmit(true);
-		fetch(`${APIURL}/login`, {
+		fetch(`/login`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json; charset=utf-8',
