@@ -88,6 +88,12 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+	<!-- Spring Boot DevTools -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-devtools</artifactId>
+    </dependency>
+
 	</dependencies>
 
 	<build>
@@ -96,6 +102,67 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			
+			<!--Frontend-Maven-Plugin -->
+			  <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>1.6</version>
+                <configuration>
+                    <workingDirectory>\Users\spect\Documents\workspace-sts-3.9.12.RELEASE\JoelMVC\src\main\app</workingDirectory>
+                    <installDirectory>target</installDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>install node and npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <configuration>
+                            <nodeVersion>v12.18.3</nodeVersion>
+                            <npmVersion>6.14.6</npmVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>npm install</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>install</arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>npm run build</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run build</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <!-- Maven-Antrun-Plugin -->
+            <plugin>
+   <artifactId>maven-antrun-plugin</artifactId>
+    <executions>
+    <execution>
+    <phase>generate-resources</phase>
+    <configuration>
+    <target>
+    <copy todir="C:\Users\spect\Documents\workspace-sts-3.9.12.RELEASE\JoelMVC\target\classes\public">
+        <fileset dir="C:\Users\spect\Documents\workspace-sts-3.9.12.RELEASE\JoelMVC\src\main\app\build"/>
+    </copy>
+    </target>
+    </configuration>
+    <goals>
+        <goal>run</goal>
+    </goals>
+    </execution>
+    </executions>
+</plugin>
 		</plugins>
 	</build>
 

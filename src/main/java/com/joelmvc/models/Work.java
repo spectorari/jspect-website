@@ -13,6 +13,7 @@ public class Work {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	private String title;
 	private String artworkcategory;
 	private String artworksubcategory;

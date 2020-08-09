@@ -51,4 +51,15 @@ public class UserController {
   public void register(@RequestBody User newUser) {
     userService.Save(newUser);
   }
+   @DeleteMapping("/api/user/{id}")
+   public ResponseEntity<User> deleteUser(@PathVariable(value="id") long id) {
+		User foundUser = dao.findById(id).orElse(null);
+		
+		if(foundUser == null) {
+			return ResponseEntity.notFound().header("User", "Id not found").build();
+		}else {
+			dao.delete(foundUser);
+		}
+		return ResponseEntity.ok().build();	
+  }
 }

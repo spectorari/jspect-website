@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 //import org.springframework.web.bind.annotation.RequestMapping; *** DO WE NEED THIS ***
 import org.springframework.web.bind.annotation.RestController;
@@ -50,6 +51,13 @@ public class WorkController {
 		Work createdWork = dao.save(work);
 		
 		// RespEntity crafts response to include correct status codes.
+		return ResponseEntity.ok(createdWork);
+	}
+	
+	
+	@PutMapping("/api/work/{id}")
+	public ResponseEntity<Work> updateWork(@RequestBody Work work) {
+		Work createdWork = dao.save(work);
 		return ResponseEntity.ok(createdWork);
 	}
 	
